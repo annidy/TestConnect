@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91CB291327BB8F2E0095B080 /* CFNetworkLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CB291027BB8F2E0095B080 /* CFNetworkLoader.m */; };
+		91CB291427BB8F2E0095B080 /* ImageClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CB291127BB8F2E0095B080 /* ImageClient.m */; };
+		91CB291527BB8F2E0095B080 /* NSURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CB291227BB8F2E0095B080 /* NSURLLoader.m */; };
 		91F46E3727BA5EA1004C9F23 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F46E3627BA5EA1004C9F23 /* AppDelegate.m */; };
 		91F46E3A27BA5EA1004C9F23 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F46E3927BA5EA1004C9F23 /* SceneDelegate.m */; };
 		91F46E3D27BA5EA1004C9F23 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F46E3C27BA5EA1004C9F23 /* ViewController.m */; };
@@ -17,6 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91CB290D27BB8F2D0095B080 /* ImageClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageClient.h; sourceTree = "<group>"; };
+		91CB290E27BB8F2D0095B080 /* NSURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLLoader.h; sourceTree = "<group>"; };
+		91CB290F27BB8F2D0095B080 /* CFNetworkLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFNetworkLoader.h; sourceTree = "<group>"; };
+		91CB291027BB8F2E0095B080 /* CFNetworkLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFNetworkLoader.m; sourceTree = "<group>"; };
+		91CB291127BB8F2E0095B080 /* ImageClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageClient.m; sourceTree = "<group>"; };
+		91CB291227BB8F2E0095B080 /* NSURLLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLLoader.m; sourceTree = "<group>"; };
 		91F46E3227BA5EA1004C9F23 /* TestConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F46E3527BA5EA1004C9F23 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		91F46E3627BA5EA1004C9F23 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -42,6 +51,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91CB290C27BB8F130095B080 /* CFNet */ = {
+			isa = PBXGroup;
+			children = (
+				91CB290F27BB8F2D0095B080 /* CFNetworkLoader.h */,
+				91CB291027BB8F2E0095B080 /* CFNetworkLoader.m */,
+				91CB290D27BB8F2D0095B080 /* ImageClient.h */,
+				91CB291127BB8F2E0095B080 /* ImageClient.m */,
+				91CB290E27BB8F2D0095B080 /* NSURLLoader.h */,
+				91CB291227BB8F2E0095B080 /* NSURLLoader.m */,
+			);
+			path = CFNet;
+			sourceTree = "<group>";
+		};
 		91F46E2927BA5EA1004C9F23 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +83,7 @@
 		91F46E3427BA5EA1004C9F23 /* TestConnect */ = {
 			isa = PBXGroup;
 			children = (
+				91CB290C27BB8F130095B080 /* CFNet */,
 				91F46E3527BA5EA1004C9F23 /* AppDelegate.h */,
 				91F46E3627BA5EA1004C9F23 /* AppDelegate.m */,
 				91F46E3827BA5EA1004C9F23 /* SceneDelegate.h */,
@@ -146,9 +169,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91CB291427BB8F2E0095B080 /* ImageClient.m in Sources */,
 				91F46E3D27BA5EA1004C9F23 /* ViewController.m in Sources */,
+				91CB291527BB8F2E0095B080 /* NSURLLoader.m in Sources */,
 				91F46E3727BA5EA1004C9F23 /* AppDelegate.m in Sources */,
 				91F46E4827BA5EA4004C9F23 /* main.m in Sources */,
+				91CB291327BB8F2E0095B080 /* CFNetworkLoader.m in Sources */,
 				91F46E3A27BA5EA1004C9F23 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
