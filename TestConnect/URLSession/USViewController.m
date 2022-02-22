@@ -1,13 +1,13 @@
 //
-//  ViewController.m
+//  USViewController.m
 //  TestConnect
 //
 //  Created by annidy on 2022/2/14.
 //
 
-#import "ViewController.h"
+#import "USViewController.h"
 
-@interface ViewController ()<NSURLSessionTaskDelegate>
+@interface USViewController ()<NSURLSessionTaskDelegate>
 @property IBOutlet UILabel *urlLabel;
 @property IBOutlet UITextView *contentView;
 @property NSURLSession *session;
@@ -15,7 +15,7 @@
 @property NSDate *startDate;
 @end
 
-@implementation ViewController
+@implementation USViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,8 +76,8 @@
 - (void)recode:(NSString *)data {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.contentView.text = [NSString stringWithFormat:@"%@\n%@", self.contentView.text, data];
-        CGPoint bottomOffset = CGPointMake(0, self.contentView.contentSize.height - self.contentView.bounds.size.height + self.contentView.contentInset.bottom);
-        [self.contentView setContentOffset:bottomOffset animated:YES];
+//        CGPoint bottomOffset = CGPointMake(0, self.contentView.contentSize.height - self.contentView.bounds.size.height + self.contentView.contentInset.bottom);
+//        [self.contentView setContentOffset:bottomOffset animated:YES];
     });
 }
 
