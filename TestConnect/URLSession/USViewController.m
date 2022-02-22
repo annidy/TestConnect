@@ -13,6 +13,7 @@
 @property NSURLSession *session;
 @property NSURLSessionTaskMetrics *metric;
 @property NSDate *startDate;
+@property dispatch_semaphore_t challengSem;
 @end
 
 @implementation USViewController
@@ -43,6 +44,32 @@
     [task resume];
 }
 
+- (IBAction)prerequest:(UIButton *)sender
+{
+    NSURL *URL = [NSURL URLWithString:self.urlLabel.text];
+    NSMutableURLRequest *r = [[NSMutableURLRequest alloc] initWithURL:URL];
+    [r addValue:@"Keep-Alive" forHTTPHeaderField:@"Connection"];
+    [r setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    
+    
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:r];
+    if (@available(iOS 15.0, *)) {
+        task.delegate = self;
+    } else {
+        // Fallback on earlier versions
+    }
+    self.challengSem = dispatch_semaphore_create(0);
+    [sender setTitle:@"连接中..." forState:UIControlStateNormal];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [task resume];
+        dispatch_semaphore_wait(self.challengSem, dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.challengSem = nil;
+            [sender setTitle:@"预连接" forState:UIControlStateNormal];
+        });
+    });
+}
+
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics {
     self.metric = metrics;
     for (NSURLSessionTaskTransactionMetrics *trans in metrics.transactionMetrics) {
@@ -68,8 +95,20 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
                            didCompleteWithError:(nullable NSError *)error
 {
-    if (error) {
-        [self recode:[error debugDescription]];
+//    if (error) {
+//        [self recode:[error debugDescription]];
+//    }
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+                            didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+                              completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler
+{
+    if (self.challengSem) {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        dispatch_semaphore_signal(self.challengSem);
+    } else {
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
     }
 }
 
