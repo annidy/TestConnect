@@ -7,7 +7,7 @@
 
 #import "USViewController.h"
 
-@interface USViewController ()<NSURLSessionTaskDelegate>
+@interface USViewController ()<NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 @property IBOutlet UILabel *urlLabel;
 @property IBOutlet UITextView *contentView;
 @property NSURLSession *session;
@@ -21,10 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    self.session = session;
+    [self invalid:nil];
 }
 
 - (IBAction)request:(id)sender
@@ -42,6 +39,15 @@
         // Fallback on earlier versions
     }
     [task resume];
+}
+
+- (IBAction)invalid:(id)sender {
+    [self.session finishTasksAndInvalidate];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    self.session = session;
 }
 
 - (IBAction)prerequest:(UIButton *)sender
@@ -95,9 +101,14 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
                            didCompleteWithError:(nullable NSError *)error
 {
-//    if (error) {
-//        [self recode:[error debugDescription]];
-//    }
+    if (error) {
+        [self recode:@"error"];
+    }
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
+{
+    [self recode:[NSString stringWithFormat:@"recv data %ld", data.length]];
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
